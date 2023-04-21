@@ -1,0 +1,3 @@
+Una vez que la base de datos este creada en SQLSERVER, se debe modificar el ConnectionString del archivo appsettings.json antes de correr el proyecto.
+
+Cambiar la parte que dice "Server=PAULINHO-PC\\MSSQLSERVER2019" por la que les aparezca en su instalacion de SQLSERVER.

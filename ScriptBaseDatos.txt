@@ -1,0 +1,90 @@
+create database SistemaInventario
+
+go
+
+use SistemaInventario 
+
+go
+
+create table Usuario(
+IDUsuario int primary key identity(1,1),
+nombre varchar(100),
+correo varchar(40),
+contrasena varchar(40),
+)
+
+go
+
+create table Proveedor(
+IDProveedor int primary key identity(1,1),
+nombre varchar(100),
+persona_contacto varchar(100),
+telefono_contacto varchar(20),
+correo_contacto varchar(40),
+)
+
+go
+
+create table Marca(
+IDMarca int primary key identity(1,1),
+nombre varchar(50),
+)
+
+go
+
+create table Categoria(
+IDCategoria int primary key identity(1,1),
+nombre varchar(50),
+descripcion varchar(100),
+)
+
+go
+
+create table Producto(
+IDProducto int primary key identity(1,1),
+nombre varchar(50),
+descripcion varchar(100),
+costo money,
+cantidad int,
+IDMarca int references Marca(IDMarca),
+IDCategoria int references Categoria(IDCategoria),
+)
+
+go
+
+create table Orden(
+IDOrden int primary key identity(1,1),
+fecha date,
+IDUsuario int references Usuario(IDUsuario),
+)
+
+go
+
+create table Detalle_Orden(
+IDDetalle_Orden int primary key identity(1,1),
+cantidad int,
+IDOrden int references Orden(IDOrden),
+IDProducto int references Producto(IDProducto),
+)
+
+go
+
+create table Compra(
+IDCompra int primary key identity(1,1),
+fecha_compra date,
+fecha_entrega date,
+costo_total money,
+IDProveedor int references Proveedor(IDProveedor),
+)
+
+go
+
+create table Detalle_Compra(
+IDDetalle_Compra int primary key identity(1,1),
+cantidad int,
+costo_unidad money,
+IDCompra int references Compra(IDCompra),
+IDProducto int references Producto(IDProducto)
+)
+
+go
