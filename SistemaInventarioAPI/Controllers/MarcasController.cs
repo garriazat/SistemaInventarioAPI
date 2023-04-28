@@ -15,6 +15,7 @@ namespace SistemaInventarioAPI.Controllers
             _context = context;
         }
 
+        //GET all action
         [HttpGet]
         public async Task<IActionResult> obtenerListaMarcas()
         {
@@ -27,6 +28,7 @@ namespace SistemaInventarioAPI.Controllers
             return Ok(lstMarcas);
         }
 
+        //GET by ID action
         [HttpGet("{id}")]
         public async Task<IActionResult> obtenerMarca(int id)
         {
@@ -45,6 +47,7 @@ namespace SistemaInventarioAPI.Controllers
             return Ok(mark);
         }
 
+        //POST action
         [HttpPost]
         public async Task<IActionResult> agregarMarca([FromBody] Marca mark)
         {
@@ -59,6 +62,14 @@ namespace SistemaInventarioAPI.Controllers
             return Ok(mark);
         }
 
+        //PUT action
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> editarMarca(int id, Categoria categoria)
+        //{
+            
+        //}
+
+        //DELETE action
         [HttpDelete("{id}")]
         public async Task<IActionResult> eliminarMarca(int id)
         {
