@@ -25,10 +25,10 @@ public partial class Compra
     [Column("IDProveedor")]
     public int? Idproveedor { get; set; }
 
-    [InverseProperty("IdcompraNavigation")]
-    public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
+    //[InverseProperty("IdcompraNavigation")]
+    //public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 
-    [ForeignKey("Idproveedor")]
-    [InverseProperty("Compras")]
-    public virtual Proveedor? IdproveedorNavigation { get; set; }
+    //[ForeignKey("Idproveedor")]
+    //[InverseProperty("Compras")]
+    //public virtual Proveedor? IdproveedorNavigation { get; set; }
 }

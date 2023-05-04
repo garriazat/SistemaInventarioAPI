@@ -33,6 +33,6 @@ public partial class Proveedor
     [Unicode(false)]
     public string? CorreoContacto { get; set; }
 
-    [InverseProperty("IdproveedorNavigation")]
-    public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
+    //[InverseProperty("IdproveedorNavigation")]
+    //public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }

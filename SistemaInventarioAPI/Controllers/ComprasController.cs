@@ -11,55 +11,55 @@ namespace SistemaInventarioAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MarcasController : ControllerBase
+    public class ComprasController : ControllerBase
     {
         private readonly DbSIAPIContext _context;
 
-        public MarcasController(DbSIAPIContext context)
+        public ComprasController(DbSIAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Marcas
+        // GET: api/Compras
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Marca>>> obtenerListaMarcas()
+        public async Task<ActionResult<IEnumerable<Compra>>> GetCompras()
         {
-          if (_context.Marcas == null)
+          if (_context.Compras == null)
           {
               return NotFound();
           }
-            return await _context.Marcas.ToListAsync();
+            return await _context.Compras.ToListAsync();
         }
 
-        // GET: api/Marcas/5
+        // GET: api/Compras/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Marca>> obtenerMarca(int id)
+        public async Task<ActionResult<Compra>> GetCompra(int id)
         {
-          if (_context.Marcas == null)
+          if (_context.Compras == null)
           {
               return NotFound();
           }
-            var marca = await _context.Marcas.FindAsync(id);
+            var compra = await _context.Compras.FindAsync(id);
 
-            if (marca == null)
+            if (compra == null)
             {
                 return NotFound();
             }
 
-            return marca;
+            return compra;
         }
 
-        // PUT: api/Marcas/5
+        // PUT: api/Compras/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMarca(int id, Marca marca)
+        public async Task<IActionResult> PutCompra(int id, Compra compra)
         {
-            if (id != marca.Idmarca)
+            if (id != compra.Idcompra)
             {
                 return BadRequest();
             }
 
-            _context.Entry(marca).State = EntityState.Modified;
+            _context.Entry(compra).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace SistemaInventarioAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MarcaExists(id))
+                if (!CompraExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace SistemaInventarioAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Marcas
+        // POST: api/Compras
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Marca>> PostMarca(Marca marca)
+        public async Task<ActionResult<Compra>> PostCompra(Compra compra)
         {
-          if (_context.Marcas == null)
+          if (_context.Compras == null)
           {
-              return Problem("Entity set 'DbSIAPIContext.Marcas'  is null.");
+              return Problem("Entity set 'DbSIAPIContext.Compras'  is null.");
           }
-            _context.Marcas.Add(marca);
+            _context.Compras.Add(compra);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMarca", new { id = marca.Idmarca }, marca);
+            return CreatedAtAction("GetCompra", new { id = compra.Idcompra }, compra);
         }
 
-        // DELETE: api/Marcas/5
+        // DELETE: api/Compras/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMarca(int id)
+        public async Task<IActionResult> DeleteCompra(int id)
         {
-            if (_context.Marcas == null)
+            if (_context.Compras == null)
             {
                 return NotFound();
             }
-            var marca = await _context.Marcas.FindAsync(id);
-            if (marca == null)
+            var compra = await _context.Compras.FindAsync(id);
+            if (compra == null)
             {
                 return NotFound();
             }
 
-            _context.Marcas.Remove(marca);
+            _context.Compras.Remove(compra);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MarcaExists(int id)
+        private bool CompraExists(int id)
         {
-            return (_context.Marcas?.Any(e => e.Idmarca == id)).GetValueOrDefault();
+            return (_context.Compras?.Any(e => e.Idcompra == id)).GetValueOrDefault();
         }
     }
 }

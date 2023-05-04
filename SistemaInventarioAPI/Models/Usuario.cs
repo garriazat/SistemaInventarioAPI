@@ -28,6 +28,6 @@ public partial class Usuario
     [Unicode(false)]
     public string? Contrasena { get; set; }
 
-    [InverseProperty("IdusuarioNavigation")]
-    public virtual ICollection<Orden> Ordens { get; set; } = new List<Orden>();
+    //[InverseProperty("IdusuarioNavigation")]
+    //public virtual ICollection<Orden> Ordens { get; set; } = new List<Orden>();
 }

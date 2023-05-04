@@ -20,9 +20,9 @@ namespace SistemaInventarioAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Categorias
+        //GET all action
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
+        public async Task<ActionResult<IEnumerable<Categoria>>> obtenerListaCategorias()
         {
           if (_context.Categoria == null)
           {
@@ -31,14 +31,16 @@ namespace SistemaInventarioAPI.Controllers
             return await _context.Categoria.ToListAsync();
         }
 
-        // GET: api/Categorias/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> GetCategoria(int id)
+        //GET by ID action
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Categoria>> obtenerCategoria(int id)
         {
-          if (_context.Categoria == null)
-          {
-              return NotFound();
-          }
+            if (_context.Categoria == null)
+            {
+                return NotFound();
+            }
+
             var categoria = await _context.Categoria.FindAsync(id);
 
             if (categoria == null)
@@ -49,10 +51,29 @@ namespace SistemaInventarioAPI.Controllers
             return categoria;
         }
 
-        // PUT: api/Categorias/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //GET by Name action
+        [HttpGet]
+        [Route("{name:alpha}")]
+        public Task<ActionResult<Categoria>> obtenerCategoria(string name)
+        {
+            if (_context.Categoria == null)
+            {
+                return Task.FromResult<ActionResult<Categoria>>(NotFound());
+            }
+
+            var categoria = _context.Categoria.FirstOrDefault(cat => cat.Nombre.ToLower() == name.ToLower());
+
+            if (categoria == null)
+            {
+                return Task.FromResult<ActionResult<Categoria>>(NotFound());
+            }
+
+            return Task.FromResult<ActionResult<Categoria>>(categoria);
+        }
+
+        //PUT action
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
+        public async Task<IActionResult> editarCategoria(int id, Categoria categoria)
         {
             if (id != categoria.Idcategoria)
             {
@@ -80,30 +101,32 @@ namespace SistemaInventarioAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Categorias
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //POST action
         [HttpPost]
-        public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
+        public async Task<ActionResult<Categoria>> agregarCategoria(Categoria categoria)
         {
-          if (_context.Categoria == null)
-          {
-              return Problem("Entity set 'DbSIAPIContext.Categoria'  is null.");
-          }
+            if (_context.Categoria == null)
+            {
+                return Problem("Entity set 'DbSIAPIContext.Categoria'  is null.");
+            }
+
             _context.Categoria.Add(categoria);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCategoria", new { id = categoria.Idcategoria }, categoria);
         }
 
-        // DELETE: api/Categorias/5
+        //DELETE action
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategoria(int id)
+        public async Task<IActionResult> eliminarCategoria(int id)
         {
             if (_context.Categoria == null)
             {
                 return NotFound();
             }
+
             var categoria = await _context.Categoria.FindAsync(id);
+
             if (categoria == null)
             {
                 return NotFound();

@@ -25,11 +25,11 @@ public partial class DetalleCompra
     [Column("IDProducto")]
     public int? Idproducto { get; set; }
 
-    [ForeignKey("Idcompra")]
-    [InverseProperty("DetalleCompras")]
-    public virtual Compra? IdcompraNavigation { get; set; }
+    //[ForeignKey("Idcompra")]
+    //[InverseProperty("DetalleCompras")]
+    //public virtual Compra? IdcompraNavigation { get; set; }
 
-    [ForeignKey("Idproducto")]
-    [InverseProperty("DetalleCompras")]
-    public virtual Producto? IdproductoNavigation { get; set; }
+    //[ForeignKey("Idproducto")]
+    //[InverseProperty("DetalleCompras")]
+    //public virtual Producto? IdproductoNavigation { get; set; }
 }

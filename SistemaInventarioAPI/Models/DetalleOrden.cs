@@ -22,11 +22,11 @@ public partial class DetalleOrden
     [Column("IDProducto")]
     public int? Idproducto { get; set; }
 
-    [ForeignKey("Idorden")]
-    [InverseProperty("DetalleOrdens")]
-    public virtual Orden? IdordenNavigation { get; set; }
+    //[ForeignKey("Idorden")]
+    //[InverseProperty("DetalleOrdens")]
+    //public virtual Orden? IdordenNavigation { get; set; }
 
-    [ForeignKey("Idproducto")]
-    [InverseProperty("DetalleOrdens")]
-    public virtual Producto? IdproductoNavigation { get; set; }
+    //[ForeignKey("Idproducto")]
+    //[InverseProperty("DetalleOrdens")]
+    //public virtual Producto? IdproductoNavigation { get; set; }
 }

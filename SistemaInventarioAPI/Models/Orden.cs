@@ -19,10 +19,10 @@ public partial class Orden
     [Column("IDUsuario")]
     public int? Idusuario { get; set; }
 
-    [InverseProperty("IdordenNavigation")]
-    public virtual ICollection<DetalleOrden> DetalleOrdens { get; set; } = new List<DetalleOrden>();
+    //[InverseProperty("IdordenNavigation")]
+    //public virtual ICollection<DetalleOrden> DetalleOrdens { get; set; } = new List<DetalleOrden>();
 
-    [ForeignKey("Idusuario")]
-    [InverseProperty("Ordens")]
-    public virtual Usuario? IdusuarioNavigation { get; set; }
+    //[ForeignKey("Idusuario")]
+    //[InverseProperty("Ordens")]
+    //public virtual Usuario? IdusuarioNavigation { get; set; }
 }

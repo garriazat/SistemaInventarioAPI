@@ -35,17 +35,17 @@ public partial class Producto
     [Column("IDCategoria")]
     public int? Idcategoria { get; set; }
 
-    [InverseProperty("IdproductoNavigation")]
-    public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
+    //[InverseProperty("IdproductoNavigation")]
+    //public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 
-    [InverseProperty("IdproductoNavigation")]
-    public virtual ICollection<DetalleOrden> DetalleOrdens { get; set; } = new List<DetalleOrden>();
+    //[InverseProperty("IdproductoNavigation")]
+    //public virtual ICollection<DetalleOrden> DetalleOrdens { get; set; } = new List<DetalleOrden>();
 
-    [ForeignKey("Idcategoria")]
-    [InverseProperty("Productos")]
-    public virtual Categoria? IdcategoriaNavigation { get; set; }
+    //[ForeignKey("Idcategoria")]
+    //[InverseProperty("Productos")]
+    //public virtual Categoria? IdcategoriaNavigation { get; set; }
 
-    [ForeignKey("Idmarca")]
-    [InverseProperty("Productos")]
-    public virtual Marca? IdmarcaNavigation { get; set; }
+    //[ForeignKey("Idmarca")]
+    //[InverseProperty("Productos")]
+    //public virtual Marca? IdmarcaNavigation { get; set; }
 }

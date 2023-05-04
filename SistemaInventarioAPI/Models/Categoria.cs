@@ -22,6 +22,6 @@ public partial class Categoria
     [Unicode(false)]
     public string? Descripcion { get; set; }
 
-    [InverseProperty("IdcategoriaNavigation")]
-    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+    //[InverseProperty("IdcategoriaNavigation")]
+    //public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }

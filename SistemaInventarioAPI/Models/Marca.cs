@@ -18,6 +18,6 @@ public partial class Marca
     [Unicode(false)]
     public string? Nombre { get; set; }
 
-    [InverseProperty("IdmarcaNavigation")]
-    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+    //[InverseProperty("IdmarcaNavigation")]
+    //public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }
