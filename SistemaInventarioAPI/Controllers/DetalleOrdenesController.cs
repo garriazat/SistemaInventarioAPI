@@ -50,6 +50,7 @@ namespace SistemaInventarioAPI.Controllers
         //    return detalleOrden;
         //}
 
+        //GET
         [HttpGet]
         [Route("{orderID:int}")]
         public async Task<ActionResult<IEnumerable<DetalleOrden>>> obtenerDetalleOrden(int orderID)
