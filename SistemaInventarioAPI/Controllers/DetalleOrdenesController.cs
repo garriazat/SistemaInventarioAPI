@@ -77,8 +77,20 @@ namespace SistemaInventarioAPI.Controllers
             var producto = await _context.Productos.FindAsync(detalleOrden.Idproducto);
             if (!(producto == null))
             {
-                producto.Cantidad -= detalleOrden.Cantidad;
-                _context.Entry(producto).State = EntityState.Modified;
+                var actual = await _context.DetalleOrdens.FindAsync(id);
+                if (!(actual == null))
+                {
+                    if(actual.Cantidad > detalleOrden.Cantidad)
+                    {
+                        producto.Cantidad += (actual.Cantidad - detalleOrden.Cantidad);
+                        _context.Entry(producto).State = EntityState.Modified;
+                    }
+                    else if (actual.Cantidad < detalleOrden.Cantidad)
+                    {
+                        producto.Cantidad -= (detalleOrden.Cantidad - actual.Cantidad);
+                        _context.Entry(producto).State = EntityState.Modified;
+                    }
+                }
             }
 
             try
