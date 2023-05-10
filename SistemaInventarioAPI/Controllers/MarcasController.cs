@@ -32,7 +32,8 @@ namespace SistemaInventarioAPI.Controllers
         }
 
         // GET: api/Marcas/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id:int}")]
         public async Task<ActionResult<Marca>> obtenerMarca(int id)
         {
           if (_context.Marcas == null)
@@ -49,10 +50,29 @@ namespace SistemaInventarioAPI.Controllers
             return marca;
         }
 
+        [HttpGet]
+        [Route("{name:alpha}")]
+        public Task<ActionResult<Marca>> obtenerMarca(string name)
+        {
+            if (_context.Marcas == null)
+            {
+                return Task.FromResult<ActionResult<Marca>>(NotFound());
+            }
+
+            var marca = _context.Marcas.FirstOrDefault(mar => mar.Nombre.ToLower() == name.ToLower());
+
+            if (marca == null)
+            {
+                return Task.FromResult<ActionResult<Marca>>(NotFound());
+            }
+
+            return Task.FromResult<ActionResult<Marca>>(marca);
+        }
+
         // PUT: api/Marcas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMarca(int id, Marca marca)
+        public async Task<IActionResult> editarMarca(int id, Marca marca)
         {
             if (id != marca.Idmarca)
             {
@@ -83,7 +103,7 @@ namespace SistemaInventarioAPI.Controllers
         // POST: api/Marcas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Marca>> PostMarca(Marca marca)
+        public async Task<ActionResult<Marca>> agregarMarca(Marca marca)
         {
           if (_context.Marcas == null)
           {
@@ -97,7 +117,7 @@ namespace SistemaInventarioAPI.Controllers
 
         // DELETE: api/Marcas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMarca(int id)
+        public async Task<IActionResult> eliminarMarca(int id)
         {
             if (_context.Marcas == null)
             {

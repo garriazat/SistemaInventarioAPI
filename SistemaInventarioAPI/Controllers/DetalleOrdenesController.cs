@@ -21,38 +21,51 @@ namespace SistemaInventarioAPI.Controllers
         }
 
         // GET: api/DetalleOrdenes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleOrden>>> GetDetalleOrdens()
-        {
-          if (_context.DetalleOrdens == null)
-          {
-              return NotFound();
-          }
-            return await _context.DetalleOrdens.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<DetalleOrden>>> GetDetalleOrdens()
+        //{
+        //    if (_context.DetalleOrdens == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return await _context.DetalleOrdens.ToListAsync();
+        //}
 
         // GET: api/DetalleOrdenes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DetalleOrden>> GetDetalleOrden(int id)
-        {
-          if (_context.DetalleOrdens == null)
-          {
-              return NotFound();
-          }
-            var detalleOrden = await _context.DetalleOrdens.FindAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<DetalleOrden>> GetDetalleOrden(int id)
+        //{
+        //  if (_context.DetalleOrdens == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    var detalleOrden = await _context.DetalleOrdens.FindAsync(id);
 
-            if (detalleOrden == null)
+        //    if (detalleOrden == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return detalleOrden;
+        //}
+
+        [HttpGet]
+        [Route("{orderID:int}")]
+        public async Task<ActionResult<IEnumerable<DetalleOrden>>> obtenerDetalleOrden(int orderID)
+        {
+            if (_context.DetalleOrdens == null)
             {
                 return NotFound();
             }
 
-            return detalleOrden;
+            return await _context.DetalleOrdens.Where(d => d.Idorden == orderID).ToListAsync();
         }
 
         // PUT: api/DetalleOrdenes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetalleOrden(int id, DetalleOrden detalleOrden)
+        public async Task<IActionResult> editarDetalleOrden(int id, DetalleOrden detalleOrden)
         {
             if (id != detalleOrden.IddetalleOrden)
             {
@@ -60,6 +73,13 @@ namespace SistemaInventarioAPI.Controllers
             }
 
             _context.Entry(detalleOrden).State = EntityState.Modified;
+
+            var producto = await _context.Productos.FindAsync(detalleOrden.Idproducto);
+            if (!(producto == null))
+            {
+                producto.Cantidad -= detalleOrden.Cantidad;
+                _context.Entry(producto).State = EntityState.Modified;
+            }
 
             try
             {
@@ -83,13 +103,21 @@ namespace SistemaInventarioAPI.Controllers
         // POST: api/DetalleOrdenes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DetalleOrden>> PostDetalleOrden(DetalleOrden detalleOrden)
+        public async Task<ActionResult<DetalleOrden>> agregarDetalleOrden(DetalleOrden detalleOrden)
         {
           if (_context.DetalleOrdens == null)
           {
               return Problem("Entity set 'DbSIAPIContext.DetalleOrdens'  is null.");
           }
             _context.DetalleOrdens.Add(detalleOrden);
+
+            var producto = await _context.Productos.FindAsync(detalleOrden.Idproducto);
+            if (!(producto == null))
+            {
+                producto.Cantidad -= detalleOrden.Cantidad;
+                _context.Entry(producto).State = EntityState.Modified;
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDetalleOrden", new { id = detalleOrden.IddetalleOrden }, detalleOrden);
@@ -97,7 +125,7 @@ namespace SistemaInventarioAPI.Controllers
 
         // DELETE: api/DetalleOrdenes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDetalleOrden(int id)
+        public async Task<IActionResult> eliminarDetalleOrden(int id)
         {
             if (_context.DetalleOrdens == null)
             {

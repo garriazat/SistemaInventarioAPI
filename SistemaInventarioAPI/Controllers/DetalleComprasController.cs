@@ -21,32 +21,44 @@ namespace SistemaInventarioAPI.Controllers
         }
 
         // GET: api/DetalleCompras
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleCompra>>> GetDetalleCompras()
-        {
-          if (_context.DetalleCompras == null)
-          {
-              return NotFound();
-          }
-            return await _context.DetalleCompras.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<DetalleCompra>>> GetDetalleCompras()
+        //{
+        //  if (_context.DetalleCompras == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    return await _context.DetalleCompras.ToListAsync();
+        //}
 
         // GET: api/DetalleCompras/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DetalleCompra>> GetDetalleCompra(int id)
-        {
-          if (_context.DetalleCompras == null)
-          {
-              return NotFound();
-          }
-            var detalleCompra = await _context.DetalleCompras.FindAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<DetalleCompra>> GetDetalleCompra(int id)
+        //{
+        //  if (_context.DetalleCompras == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    var detalleCompra = await _context.DetalleCompras.FindAsync(id);
 
-            if (detalleCompra == null)
+        //    if (detalleCompra == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return detalleCompra;
+        //}
+
+        [HttpGet]
+        [Route("{compraID:int}")]
+        public async Task<ActionResult<IEnumerable<DetalleCompra>>> obtenerDetalleCompra(int compraID)
+        {
+            if (_context.DetalleCompras == null)
             {
                 return NotFound();
             }
 
-            return detalleCompra;
+            return await _context.DetalleCompras.Where(d => d.Idcompra == compraID).ToListAsync();
         }
 
         // PUT: api/DetalleCompras/5
