@@ -29,5 +29,5 @@ public partial class Usuario
     public string? Contrasena { get; set; }
 
     //[InverseProperty("IdusuarioNavigation")]
-    //public virtual ICollection<Orden> Ordens { get; set; } = new List<Orden>();
+    //public virtual ICollection<Orden> Ordenes { get; set; } = new List<Orden>();
 }

@@ -24,22 +24,22 @@ namespace SistemaInventarioAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Orden>>> GetOrdens()
         {
-          if (_context.Ordens == null)
+          if (_context.Ordenes == null)
           {
               return NotFound();
           }
-            return await _context.Ordens.ToListAsync();
+            return await _context.Ordenes.ToListAsync();
         }
 
         // GET: api/Ordenes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Orden>> GetOrden(int id)
         {
-          if (_context.Ordens == null)
+          if (_context.Ordenes == null)
           {
               return NotFound();
           }
-            var orden = await _context.Ordens.FindAsync(id);
+            var orden = await _context.Ordenes.FindAsync(id);
 
             if (orden == null)
             {
@@ -85,11 +85,11 @@ namespace SistemaInventarioAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Orden>> PostOrden(Orden orden)
         {
-          if (_context.Ordens == null)
+          if (_context.Ordenes == null)
           {
               return Problem("Entity set 'DbSIAPIContext.Ordens'  is null.");
           }
-            _context.Ordens.Add(orden);
+            _context.Ordenes.Add(orden);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrden", new { id = orden.Idorden }, orden);
@@ -99,17 +99,17 @@ namespace SistemaInventarioAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrden(int id)
         {
-            if (_context.Ordens == null)
+            if (_context.Ordenes == null)
             {
                 return NotFound();
             }
-            var orden = await _context.Ordens.FindAsync(id);
+            var orden = await _context.Ordenes.FindAsync(id);
             if (orden == null)
             {
                 return NotFound();
             }
 
-            _context.Ordens.Remove(orden);
+            _context.Ordenes.Remove(orden);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -117,7 +117,7 @@ namespace SistemaInventarioAPI.Controllers
 
         private bool OrdenExists(int id)
         {
-            return (_context.Ordens?.Any(e => e.Idorden == id)).GetValueOrDefault();
+            return (_context.Ordenes?.Any(e => e.Idorden == id)).GetValueOrDefault();
         }
     }
 }

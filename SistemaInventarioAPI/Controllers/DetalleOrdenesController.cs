@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaInventarioAPI.Models;
 
@@ -24,23 +19,23 @@ namespace SistemaInventarioAPI.Controllers
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<DetalleOrden>>> GetDetalleOrdens()
         //{
-        //    if (_context.DetalleOrdens == null)
+        //    if (_context.DetalleOrdenes == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    return await _context.DetalleOrdens.ToListAsync();
+        //    return await _context.DetalleOrdenes.ToListAsync();
         //}
 
         // GET: api/DetalleOrdenes/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<DetalleOrden>> GetDetalleOrden(int id)
         //{
-        //  if (_context.DetalleOrdens == null)
+        //  if (_context.DetalleOrdenes == null)
         //  {
         //      return NotFound();
         //  }
-        //    var detalleOrden = await _context.DetalleOrdens.FindAsync(id);
+        //    var detalleOrden = await _context.DetalleOrdenes.FindAsync(id);
 
         //    if (detalleOrden == null)
         //    {
@@ -55,12 +50,12 @@ namespace SistemaInventarioAPI.Controllers
         [Route("{orderID:int}")]
         public async Task<ActionResult<IEnumerable<DetalleOrden>>> obtenerDetalleOrden(int orderID)
         {
-            if (_context.DetalleOrdens == null)
+            if (_context.DetalleOrdenes == null)
             {
                 return NotFound();
             }
 
-            return await _context.DetalleOrdens.Where(d => d.Idorden == orderID).ToListAsync();
+            return await _context.DetalleOrdenes.Where(d => d.Idorden == orderID).ToListAsync();
         }
 
         // PUT: api/DetalleOrdenes/5
@@ -78,7 +73,7 @@ namespace SistemaInventarioAPI.Controllers
             var producto = await _context.Productos.FindAsync(detalleOrden.Idproducto);
             if (!(producto == null))
             {
-                var actual = await _context.DetalleOrdens.FindAsync(id);
+                var actual = await _context.DetalleOrdenes.FindAsync(id);
                 if (!(actual == null))
                 {
                     if(actual.Cantidad > detalleOrden.Cantidad)
@@ -118,11 +113,11 @@ namespace SistemaInventarioAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleOrden>> agregarDetalleOrden(DetalleOrden detalleOrden)
         {
-          if (_context.DetalleOrdens == null)
+          if (_context.DetalleOrdenes == null)
           {
               return Problem("Entity set 'DbSIAPIContext.DetalleOrdens'  is null.");
           }
-            _context.DetalleOrdens.Add(detalleOrden);
+            _context.DetalleOrdenes.Add(detalleOrden);
 
             var producto = await _context.Productos.FindAsync(detalleOrden.Idproducto);
             if (!(producto == null))
@@ -140,17 +135,17 @@ namespace SistemaInventarioAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> eliminarDetalleOrden(int id)
         {
-            if (_context.DetalleOrdens == null)
+            if (_context.DetalleOrdenes == null)
             {
                 return NotFound();
             }
-            var detalleOrden = await _context.DetalleOrdens.FindAsync(id);
+            var detalleOrden = await _context.DetalleOrdenes.FindAsync(id);
             if (detalleOrden == null)
             {
                 return NotFound();
             }
 
-            _context.DetalleOrdens.Remove(detalleOrden);
+            _context.DetalleOrdenes.Remove(detalleOrden);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -158,7 +153,7 @@ namespace SistemaInventarioAPI.Controllers
 
         private bool DetalleOrdenExists(int id)
         {
-            return (_context.DetalleOrdens?.Any(e => e.IddetalleOrden == id)).GetValueOrDefault();
+            return (_context.DetalleOrdenes?.Any(e => e.IddetalleOrden == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaInventarioAPI.Models;
 
@@ -49,6 +44,7 @@ namespace SistemaInventarioAPI.Controllers
         //    return detalleCompra;
         //}
 
+        //GET
         [HttpGet]
         [Route("{compraID:int}")]
         public async Task<ActionResult<IEnumerable<DetalleCompra>>> obtenerDetalleCompra(int compraID)
@@ -72,6 +68,25 @@ namespace SistemaInventarioAPI.Controllers
             }
 
             _context.Entry(detalleCompra).State = EntityState.Modified;
+
+            var producto = await _context.Productos.FindAsync(detalleCompra.Idproducto);
+            if (!(producto == null))
+            {
+                var actual = await _context.DetalleCompras.FindAsync(id);
+                if (!(actual == null))
+                {
+                    if (actual.Cantidad > detalleCompra.Cantidad)
+                    {
+                        producto.Cantidad += (actual.Cantidad - detalleCompra.Cantidad);
+                        _context.Entry(producto).State = EntityState.Modified;
+                    }
+                    else if (actual.Cantidad < detalleCompra.Cantidad)
+                    {
+                        producto.Cantidad -= (detalleCompra.Cantidad - actual.Cantidad);
+                        _context.Entry(producto).State = EntityState.Modified;
+                    }
+                }
+            }
 
             try
             {
@@ -102,6 +117,14 @@ namespace SistemaInventarioAPI.Controllers
               return Problem("Entity set 'DbSIAPIContext.DetalleCompras'  is null.");
           }
             _context.DetalleCompras.Add(detalleCompra);
+
+            var producto = await _context.Productos.FindAsync(detalleCompra.Idproducto);
+            if (!(producto == null))
+            {
+                producto.Cantidad -= detalleCompra.Cantidad;
+                _context.Entry(producto).State = EntityState.Modified;
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDetalleCompra", new { id = detalleCompra.IddetalleCompra }, detalleCompra);

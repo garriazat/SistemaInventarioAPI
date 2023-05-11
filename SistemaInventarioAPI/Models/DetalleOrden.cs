@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace SistemaInventarioAPI.Models;
 
@@ -23,10 +20,10 @@ public partial class DetalleOrden
     public int? Idproducto { get; set; }
 
     //[ForeignKey("Idorden")]
-    //[InverseProperty("DetalleOrdens")]
+    //[InverseProperty("DetalleOrdenes")]
     //public virtual Orden? IdordenNavigation { get; set; }
 
     //[ForeignKey("Idproducto")]
-    //[InverseProperty("DetalleOrdens")]
+    //[InverseProperty("DetalleOrdenes")]
     //public virtual Producto? IdproductoNavigation { get; set; }
 }

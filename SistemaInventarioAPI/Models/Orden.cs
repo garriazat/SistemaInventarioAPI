@@ -20,9 +20,9 @@ public partial class Orden
     public int? Idusuario { get; set; }
 
     //[InverseProperty("IdordenNavigation")]
-    //public virtual ICollection<DetalleOrden> DetalleOrdens { get; set; } = new List<DetalleOrden>();
+    //public virtual ICollection<DetalleOrden> DetalleOrdenes { get; set; } = new List<DetalleOrden>();
 
     //[ForeignKey("Idusuario")]
-    //[InverseProperty("Ordens")]
+    //[InverseProperty("Ordenes")]
     //public virtual Usuario? IdusuarioNavigation { get; set; }
 }

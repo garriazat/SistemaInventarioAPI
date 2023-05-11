@@ -21,15 +21,15 @@ public partial class DbSIAPIContext : DbContext
 
     public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
 
-    public virtual DbSet<DetalleOrden> DetalleOrdens { get; set; }
+    public virtual DbSet<DetalleOrden> DetalleOrdenes { get; set; }
 
     public virtual DbSet<Marca> Marcas { get; set; }
 
-    public virtual DbSet<Orden> Ordens { get; set; }
+    public virtual DbSet<Orden> Ordenes { get; set; }
 
     public virtual DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Proveedor> Proveedors { get; set; }
+    public virtual DbSet<Proveedor> Proveedores { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
@@ -63,9 +63,9 @@ public partial class DbSIAPIContext : DbContext
         {
             entity.HasKey(e => e.IddetalleOrden).HasName("PK__Detalle___60397FE415970921");
 
-            entity.HasOne(d => d.IdordenNavigation).WithMany(p => p.DetalleOrdens).HasConstraintName("FK__Detalle_O__IDOrd__32E0915F");
+            entity.HasOne(d => d.IdordenNavigation).WithMany(p => p.DetalleOrdenes).HasConstraintName("FK__Detalle_O__IDOrd__32E0915F");
 
-            entity.HasOne(d => d.IdproductoNavigation).WithMany(p => p.DetalleOrdens).HasConstraintName("FK__Detalle_O__IDPro__33D4B598");
+            entity.HasOne(d => d.IdproductoNavigation).WithMany(p => p.DetalleOrdenes).HasConstraintName("FK__Detalle_O__IDPro__33D4B598");
         });
 
         modelBuilder.Entity<Marca>(entity =>
@@ -77,7 +77,7 @@ public partial class DbSIAPIContext : DbContext
         {
             entity.HasKey(e => e.Idorden).HasName("PK__Orden__5CBBCAD79FA9B953");
 
-            entity.HasOne(d => d.IdusuarioNavigation).WithMany(p => p.Ordens).HasConstraintName("FK__Orden__IDUsuario__300424B4");
+            entity.HasOne(d => d.IdusuarioNavigation).WithMany(p => p.Ordenes).HasConstraintName("FK__Orden__IDUsuario__300424B4");
         });
 
         modelBuilder.Entity<Producto>(entity =>
