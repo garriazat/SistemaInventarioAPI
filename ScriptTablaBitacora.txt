@@ -1,0 +1,14 @@
+use SistemaInventario 
+
+go
+
+create table Bitacora(
+IDBitacora int primary key identity(1,1),
+fecha date,
+hora time,
+producto varchar(50),
+cantidad int,
+transaccion varchar(20),
+)
+
+go
