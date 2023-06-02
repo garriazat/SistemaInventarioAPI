@@ -15,6 +15,8 @@ public partial class DbSIAPIContext : DbContext
     {
     }
 
+    public virtual DbSet<Bitacora> Bitacora { get; set; }
+
     public virtual DbSet<Categoria> Categoria { get; set; }
 
     public virtual DbSet<Compra> Compras { get; set; }
